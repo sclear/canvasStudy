@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #mycanvas{
+            border: 1px solid black;
+            cursor: move;
+            border: 1px solid yellow;
+        }
+    </style>
+</head>
+<body>
+    <canvas height="500" width="500" id="mycanvas"></canvas>
+
+    <script>
+        function getCol() {
+            return parseInt( Math.random()*256 )
+        }
+        class Boll {
+            constructor(x,y,r,speed,color) {
+                this.x = x;
+                this.y = y;
+                this.r = r;
+                this.speed = speed;
+                this.color = color;
+                this.dx = parseInt( Math.random()*8 ) - 4;
+                this.dy = parseInt( Math.random()*8 ) - 4;
+                actor.push(this)
+            }
+            render() {
+                ctx.beginPath()
+                ctx.fillStyle = this.color;
+                ctx.arc(this.x, this.y ,this.r, 0, 2 * Math.PI, true)
+                ctx.fill()
+                ctx.closePath()
+            }
+            update() {
+                this.x += this.dx===0 ? 1 : this.dx;
+                this.y += this.dy===0 ? 1 : this.dy;
+                if(this.r <= 0) {
+                    this.die()
+                }
+                else {
+                    this.r--
+                }
+            }
+            die() {
+                actor.forEach( (act,i)=>{
+                    if( act === this ) {
+                        actor.splice(i,1)
+                    }
+                } )
+            }
+        }
+        let actor = [];
+        let mycanvas = document.getElementById('mycanvas')
+        let ctx = mycanvas.getContext('2d');
+        setInterval( ()=>{
+            ctx.clearRect(0,0,500,500);
+            actor.forEach( act => {
+
+                act.update()
+                act && act.render()
+            });
+        },20 )
+        mycanvas.onmousemove = function(evnet) {
+            r = parseInt( Math.random()*30 )
+            color = 'rgba('+getCol()+','+getCol()+','+getCol()+','+Math.random()+')'
+            new Boll(evnet.clientX, event.clientY,30,1,color)
+        }
+    </script>
+</body>
+</html>

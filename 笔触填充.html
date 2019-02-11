@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #mycanvas{
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <canvas height="500" width="500" id="mycanvas"></canvas>
+
+    <script>
+    
+        let mycanvas = document.getElementById('mycanvas')
+
+        let ctx = mycanvas.getContext('2d');
+        //描边颜色
+        // ctx.strokeStyle = 'red'
+        //非填充
+        // ctx.strokeRect(100,100,20,100)
+
+        //开始绘制
+        ctx.beginPath();
+        ctx.moveTo(100,100)     //移动 (起点)
+        ctx.lineTo(200,300)     //TO  （终点）
+        ctx.lineTo(100,200)     //可一直衔接
+        ctx.closePath()         //封闭路径 结束
+        ctx.lineWidth = '10'
+        ctx.strokeStyle = 'red'
+        ctx.stroke()    //画线
+        ctx.fill()
+
+        ctx.beginPath()
+        ctx.lineWidth = '1'
+        ctx.arc(300,300,50,0,Math.PI*2,true)
+        ctx.stroke()
+        // ctx.fill()
+        ctx.closePath()
+
+        // ctx.beginPath();
+        // ctx.arc(300,300,50,0,Math.PI*0.5,true);
+        // ctx.fill();
+        // ctx.closePath()
+    </script>
+</body>
+</html>

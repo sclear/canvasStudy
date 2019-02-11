@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #mycanvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas height="500" width="500" id="mycanvas"></canvas>
+
+    <script>
+        class Boll {
+            constructor(x,y,r,speed) {
+                this.x = x;
+                this.y = y;
+                this.r = r;
+                this.speed = speed;
+                actor.push(this)
+            }
+
+            render() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, 0 , Math.PI * 2,true);
+                ctx.closePath()
+                ctx.stroke()
+            }
+
+            update() {
+                this.x += this.speed;
+                return this
+            }
+        }
+        //上屏立刻被像素画 失去 节点 常规操作DOM将不再可行 
+        //而使用帧动画
+        let mycanvas = document.getElementById('mycanvas')
+        let ctx = mycanvas.getContext('2d');
+        let actor = [];
+        new Boll(100,200,50,2)
+
+        let po = 0;
+        setInterval(() => {
+            // x++;
+            // ctx.clearRect(0,0,500,500)      //清屏
+            // ctx.beginPath()
+            // ctx.strokeStyle = 'red';
+            // ctx.arc(x, 200, 50, 0, 2 * Math.PI, true)
+            // ctx.stroke()
+            // ctx.closePath()
+            ctx.clearRect(0,0,500,500)
+            //打印帧编号
+            po++
+            ctx.fillText(po,20,20)
+            actor.forEach(act=>{
+                act.update().render()
+            } )
+        }, 20)
+
+
+
+    </script>
+</body>
+
+</html>
